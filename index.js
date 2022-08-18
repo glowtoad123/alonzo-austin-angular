@@ -164,7 +164,7 @@ app.get("/works", function(req, res) {
     var newContent = `<app-root><h1>Works</h1>${Object.values(worksMap).map(document => `<h3>${document.data.client}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
     console.log("newContent", newContent)
     page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's jobs as a freelancer</title>")
-    page = page.split("</title>").join("</title>\n<meta name='description' content='Alonzo Austin's jobs as a freelancer on upwork and indeed'>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='Alonzo Austin's jobs as a freelancer on upwork and fiverr or for friends/family'>")
     page = page.split("<app-root></app-root>").join(newContent)
     fs.writeFileSync("dist/alonzo-austin-angular/works.html", page, function(err, data){
         if(err){
