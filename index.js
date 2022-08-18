@@ -128,6 +128,8 @@ app.get("/blog", function(req, res) {
     /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
     var newContent = `<app-root>${Object.values(blogsMap).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.content)}`).join()}</app-root>`
     console.log("newContent", newContent)
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Blog Articles</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='My Blog consists of articles regarding my journey as a web developer and tips.'>")
     page = page.split("<app-root></app-root>").join(newContent)
     fs.writeFileSync("dist/alonzo-austin-angular/blog.html", page, function(err, data){
         if(err){
@@ -144,6 +146,8 @@ app.get("/projects", function(req, res) {
     /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
     var newContent = `<app-root>${Object.values(projectsMap).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
     console.log("newContent", newContent)
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Web Development Projects</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all my the projects I have created and am working on as a Fullstack Web Developer.'>")
     page = page.split("<app-root></app-root>").join(newContent)
     fs.writeFileSync("dist/alonzo-austin-angular/project.html", page, function(err, data){
         if(err){
@@ -159,6 +163,8 @@ app.get("/works", function(req, res) {
     /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
     var newContent = `<app-root>${Object.values(worksMap).map(document => `<h3>${document.data.client}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
     console.log("newContent", newContent)
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's jobs as a freelancer</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='Alonzo Austin's jobs as a freelancer on upwork and indeed'>")
     page = page.split("<app-root></app-root>").join(newContent)
     fs.writeFileSync("dist/alonzo-austin-angular/works.html", page, function(err, data){
         if(err){
