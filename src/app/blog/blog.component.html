@@ -1,0 +1,12 @@
+<div class="card-list">
+
+    <app-card 
+        *ngFor="let article of articleList"
+        [title]="article.data.title"
+        [content]="article.data.content"
+        [date]="article.data.date"
+        [id]="article.id"
+        [type]="'article'"
+    ></app-card>
+    
+</div>

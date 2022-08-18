@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { 
+  background: #e9e5e5;
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.mat-chip-list-wrapper {
+  width: 100%;
+  overflow-x: hidden;
+  flex-direction: row;
+  flex-wrap: nowrap !important;
+  margin-top: 50px !important;
+}
+
+.mat-chip-list-wrapper:hover, .mat-chip-list-wrapper:active {
+  overflow-x: scroll;
+}

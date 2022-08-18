@@ -1,0 +1,16 @@
+<div class="card-list">
+
+    <app-card 
+        *ngFor="let job of jobList"
+        [client]="job.data.client"
+        [description]="job.data.description"
+        [date]="job.data.date"
+        [review]="job.data.review"
+        [categories]="job.data.categories"
+        [source]="job.data.source"
+        [rating]="job.data.rating"
+        [id]="job.id"
+        [type]="'job'"
+    ></app-card>
+    
+</div>

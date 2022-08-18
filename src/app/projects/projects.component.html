@@ -1,0 +1,16 @@
+<div class="card-list">
+
+    <app-card 
+        *ngFor="let project of projectList"
+        [title]="project.data.title"
+        [description]="project.data.description"
+        [date]="project.data.date"
+        [log]="project.data.Log"
+        [categories]="project.data.categories"
+        [icon]="project.data.showcaseImage"
+        [url]="project.data.url"
+        [id]="project.id"
+        [type]="'project'"
+    ></app-card>
+    
+</div>

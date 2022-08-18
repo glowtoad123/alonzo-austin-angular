@@ -1,0 +1,14 @@
+<mat-card class="card">
+    <mat-card-title routerLink="['{{type}}', {{id}}]">
+      {{title ? title : client}}
+    </mat-card-title>
+    <mat-card-content >
+      {{description ? description.slice(0, 100) + '...' : content.slice(0, 100) + '...'}}
+    </mat-card-content>
+      <mat-chip-list class="chip-list">
+        <mat-chip *ngFor="let category of categories">{{category}}</mat-chip>
+      </mat-chip-list>
+    <div class="project-icon-containter">
+      <img matCardImageSmall src="{{icon ? icon : '/assets/kodenshare-red.svg'}}" alt="projare" >
+    </div>
+  </mat-card>
