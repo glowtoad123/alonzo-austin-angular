@@ -51,6 +51,17 @@ var blogsMap = {}
 var projectsMap = {}
 var worksMap = {}
 
+app.get("/blog", function(req, res) {
+    res.sendFile(pathToFile + "/blog.html")
+})
+
+app.get("/projects", function(req, res) {
+    res.sendFile(pathToFile + "/project.html")
+})
+app.get("/works", function(req, res) {
+    res.sendFile(pathToFile + "/works.html")
+})
+
 db.collection("blogs").onSnapshot(docs => {
     var map = {}
     docs.docs.map(doc => {
@@ -58,6 +69,19 @@ db.collection("blogs").onSnapshot(docs => {
     })
 
     blogsMap = map
+
+    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+    var newContent = `<app-root><h1>Blog</h1>${Object.values(map).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.content)}`).join()}</app-root>`
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Blog Articles</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='My Blog consists of articles regarding my journey as a web developer and tips.'>")
+    page = page.split("<app-root></app-root>").join(newContent)
+    fs.writeFileSync("dist/alonzo-austin-angular/blog.html", page, function(err, data){
+        if(err){
+            console.log("did not write blog.html", err)
+        } else {
+            console.log("did write to blog.html", data)
+        }
+    })
 
 })
 
@@ -86,6 +110,20 @@ db.collection("projects").onSnapshot(docs => {
         map[document.id] = document
     })
 
+    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+    var newContent = `<app-root><h1>Projects</h1>${Object.values(map).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
+    console.log("newContent", newContent)
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Web Development Projects</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all my the projects I have created and am working on as a Fullstack Web Developer.'>")
+    page = page.split("<app-root></app-root>").join(newContent)
+    fs.writeFileSync("dist/alonzo-austin-angular/project.html", page, function(err, data){
+        if(err){
+            console.log("did not write project.html", err)
+        } else {
+            console.log("did write to project.html", data)
+        }
+    })
+
     projectsMap = map
     
     
@@ -109,6 +147,20 @@ db.collection("works").onSnapshot(docs => {
         map[doc.doc.id] = {data: doc.doc.data(), id: doc.doc.id}
     })
 
+    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+    var newContent = `<app-root><h1>Works</h1>${Object.values(map).map(document => `<h3>${document.data.client}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
+    console.log("newContent", newContent)
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's jobs as a freelancer</title>")
+    page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all of the jobs as a freelancer on upwork and fiverr or for friends/family'>")
+    page = page.split("<app-root></app-root>").join(newContent)
+    fs.writeFileSync("dist/alonzo-austin-angular/works.html", page, function(err, data){
+        if(err){
+            console.log("did not write works.html", err)
+        } else {
+            console.log("did write to works.html", data)
+        }
+    })
+
     worksMap = map
 
 })
@@ -123,58 +175,7 @@ app.get("/get-job/:id", function(req, res) {
     res.send(selectedOne)
 })
 
-app.get("/blog", function(req, res) {
-    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
-    /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
-    var newContent = `<app-root><h1>Blog</h1>${Object.values(blogsMap).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.content)}`).join()}</app-root>`
-    console.log("newContent", newContent)
-    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Blog Articles</title>")
-    page = page.split("</title>").join("</title>\n<meta name='description' content='My Blog consists of articles regarding my journey as a web developer and tips.'>")
-    page = page.split("<app-root></app-root>").join(newContent)
-    fs.writeFileSync("dist/alonzo-austin-angular/blog.html", page, function(err, data){
-        if(err){
-            console.log("did not write blog.html", err)
-        } else {
-            console.log("did write to blog.html", data)
-        }
-    })
-    res.sendFile(pathToFile + "/blog.html")
-})
 
-app.get("/projects", function(req, res) {
-    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
-    /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
-    var newContent = `<app-root><h1>Projects</h1>${Object.values(projectsMap).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
-    console.log("newContent", newContent)
-    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Web Development Projects</title>")
-    page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all my the projects I have created and am working on as a Fullstack Web Developer.'>")
-    page = page.split("<app-root></app-root>").join(newContent)
-    fs.writeFileSync("dist/alonzo-austin-angular/project.html", page, function(err, data){
-        if(err){
-            console.log("did not write project.html", err)
-        } else {
-            console.log("did write to project.html", data)
-        }
-    })
-    res.sendFile(pathToFile + "/project.html")
-})
-app.get("/works", function(req, res) {
-    var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
-    /* var appRoot = new RegExp(/<app-root>[\s\S]+<\/app-root>/gm) */
-    var newContent = `<app-root><h1>Works</h1>${Object.values(worksMap).map(document => `<h3>${document.data.client}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
-    console.log("newContent", newContent)
-    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's jobs as a freelancer</title>")
-    page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all of the jobs as a freelancer on upwork and fiverr or for friends/family'>")
-    page = page.split("<app-root></app-root>").join(newContent)
-    fs.writeFileSync("dist/alonzo-austin-angular/works.html", page, function(err, data){
-        if(err){
-            console.log("did not write works.html", err)
-        } else {
-            console.log("did write to works.html", data)
-        }
-    })
-    res.sendFile(pathToFile + "/works.html")
-})
 
 app.listen(port, () => {
     if(port === 3000){
