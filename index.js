@@ -7,6 +7,7 @@ const { getFirestore, Timestamp, FieldValue } = require('firebase-admin/firestor
 const path = require("path")
 const fs = require("fs")
 const hljs = require('highlight.js');
+const optimize = require("./id-optimizer");
 const md = require('markdown-it')({
     highlight: function (str, lang) {
       if (lang && hljs.getLanguage(lang)) {
@@ -55,11 +56,24 @@ app.get("/blog", function(req, res) {
     res.sendFile(pathToFile + "/blog.html")
 })
 
-app.get("/projects", function(req, res) {
-    res.sendFile(pathToFile + "/project.html")
+app.get("/article/:id", function(req, res) {
+    res.sendFile(pathToFile + `/article/id/${optimize(req.params.id)}.html`)
 })
+
+app.get("/projects", function(req, res) {
+    res.sendFile(pathToFile + "/projects.html")
+})
+
+app.get("/project/:id", function(req, res) {
+    res.sendFile(pathToFile + `/project/id/${optimize(req.params.id)}.html`)
+})
+
 app.get("/works", function(req, res) {
     res.sendFile(pathToFile + "/works.html")
+})
+
+app.get("/job/:id", function(req, res) {
+    res.sendFile(pathToFile + `/job/id/${optimize(req.params.id)}.html`)
 })
 
 db.collection("blogs").onSnapshot(docs => {
@@ -70,9 +84,31 @@ db.collection("blogs").onSnapshot(docs => {
 
     blogsMap = map
 
+    try {
+        fs.mkdirSync(path.join(__dirname, "dist/alonzo-austin-angular/article/id"), {recursive: true})
+    } catch(err) {
+        console.log("folder already exists", err)
+    }
+
+    Object.values(map).map(document => {
+        let page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+        var newContent = `<app-root>\n<h1>${document.data.title}</h1>\n<br>${md.render(document.data.content)}}</app-root>`
+        console.log("newContent", newContent)
+        page = page.split("<title>Alonzo Austin Angular Website</title>").join(`<title>${document.data.title + "- Alonzo Austin's article"}</title>`)
+        page = page.split("</title>").join(`</title>\n<meta name='description' content='${document.data.content}'>`)
+        page = page.split("<app-root></app-root>").join(newContent)
+        fs.writeFileSync(`dist/alonzo-austin-angular/article/id/${optimize(document.id)}.html`, page, function(err, data){
+            if(err){
+                console.log(`failed to write to ${optimize(document.id)}.html`, err)
+            } else {
+                console.log(`successfully wrote to ${optimize(document.id)}.html`, data)
+            }
+        })
+    })
+
     var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
-    var newContent = `<app-root><h1>Blog</h1>${Object.values(map).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.content)}`).join()}</app-root>`
-    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Blog Articles</title>")
+    var newContent = `<app-root>\n<h1>Blog</h1>\n${Object.values(map).map(document => `\n<h3>${document.data.title}</h3>\n<br>${md.render(document.data.content)}\n`).join("")}</app-root>`
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("\n<title>Alonzo Austin's Blog Articles</title>")
     page = page.split("</title>").join("</title>\n<meta name='description' content='My Blog consists of articles regarding my journey as a web developer and tips.'>")
     page = page.split("<app-root></app-root>").join(newContent)
     fs.writeFileSync("dist/alonzo-austin-angular/blog.html", page, function(err, data){
@@ -110,19 +146,42 @@ db.collection("projects").onSnapshot(docs => {
         map[document.id] = document
     })
 
+    try {
+        fs.mkdirSync(path.join(__dirname, "dist/alonzo-austin-angular/project/id"), {recursive: true})
+    } catch(err) {
+        console.log("folder already exists", err)
+    }
+
+    Object.values(map).map(document => {
+        let page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+        var newContent = `<app-root>\n<h1>${document.data.title}</h1>\n<br>\n<p>${document.data.description}</p>\n<br>${md.render(document.data.Log)}}</app-root>`
+        console.log("newContent", newContent)
+        page = page.split("<title>Alonzo Austin Angular Website</title>").join(`\n<title>${document.data.title + "- Alonzo Austin's Projects"}</title>`)
+        page = page.split("</title>").join(`</title>\n<meta name='description' content='${document.data.description}'>`)
+        page = page.split("<app-root></app-root>").join(newContent)
+        fs.writeFileSync(`dist/alonzo-austin-angular/project/id/${optimize(document.id)}.html`, page, function(err, data){
+            if(err){
+                console.log(`failed to write to ${optimize(document.id)}.html`, err)
+            } else {
+                console.log(`successfully wrote to ${optimize(document.id)}.html`, data)
+            }
+        })
+    })
+
     var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
-    var newContent = `<app-root><h1>Projects</h1>${Object.values(map).map(document => `<h3>${document.data.title}</h3><br>${md.render(document.data.description)}`).join()}</app-root>`
+    var newContent = `<app-root>\n<h1>Projects</h1>${Object.values(map).map(document => `\n<h3>${document.data.title}</h3>\n<br>${md.render(document.data.description)}`).join("")}\n</app-root>`
     console.log("newContent", newContent)
-    page = page.split("<title>Alonzo Austin Angular Website</title>").join("<title>Alonzo Austin's Web Development Projects</title>")
+    page = page.split("<title>Alonzo Austin Angular Website</title>").join("\n<title>Alonzo Austin's Web Development Projects</title>")
     page = page.split("</title>").join("</title>\n<meta name='description' content='This is a showcase of all my the projects I have created and am working on as a Fullstack Web Developer.'>")
     page = page.split("<app-root></app-root>").join(newContent)
-    fs.writeFileSync("dist/alonzo-austin-angular/project.html", page, function(err, data){
+    fs.writeFileSync("dist/alonzo-austin-angular/projects.html", page, function(err, data){
         if(err){
-            console.log("did not write project.html", err)
+            console.log("did not write projects.html", err)
         } else {
-            console.log("did write to project.html", data)
+            console.log("did write to projects.html", data)
         }
     })
+
 
     projectsMap = map
     
@@ -145,6 +204,28 @@ db.collection("works").onSnapshot(docs => {
     var map = {}
     docs.docChanges().map(doc => {
         map[doc.doc.id] = {data: doc.doc.data(), id: doc.doc.id}
+    })
+
+    try {
+        fs.mkdirSync(path.join(__dirname, "dist/alonzo-austin-angular/job/id"), {recursive: true})
+    } catch(err) {
+        console.log("folder already exists", err)
+    }
+
+    Object.values(map).map(document => {
+        let page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
+        var newContent = `<app-root>\n<h1>${document.data.client}</h1><br><p>${document.data.review}\n</p>\n<br>\n${md.render(document.data.description)}}\n</app-root>`
+        console.log("newContent", newContent)
+        page = page.split("<title>Alonzo Austin Angular Website</title>").join(`\n<title>${document.data.client + "- Job that Alonzo Austin did"}</title>`)
+        page = page.split("</title>").join(`</title>\n<meta name='description' content='${document.data.review}'>`)
+        page = page.split("<app-root></app-root>").join(newContent)
+        fs.writeFileSync(`dist/alonzo-austin-angular/job/id/${optimize(document.id)}.html`, page, function(err, data){
+            if(err){
+                console.log(`failed to write to ${optimize(document.id)}.html`, err)
+            } else {
+                console.log(`successfully wrote to ${optimize(document.id)}.html`, data)
+            }
+        })
     })
 
     var page = fs.readFileSync("dist/alonzo-austin-angular/index.html", "utf-8")
