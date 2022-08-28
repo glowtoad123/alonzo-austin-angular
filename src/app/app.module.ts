@@ -19,6 +19,9 @@ import { ProjectComponent } from './project/project.component';
 import { ArticleComponent } from './article/article.component';
 import { JobComponent } from './job/job.component';
 import { RetrieveService } from './retrieve.service';
+import { PageComponent } from './page/page.component';
+import { RouterModule } from '@angular/router';
+import { MdpPipe } from './mdp.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,9 @@ import { RetrieveService } from './retrieve.service';
     WorksComponent,
     ProjectComponent,
     ArticleComponent,
-    JobComponent
+    JobComponent,
+    PageComponent,
+    MdpPipe
   ],
   imports: [
     BrowserModule,
@@ -42,10 +47,11 @@ import { RetrieveService } from './retrieve.service';
     MatIconModule,
     MatToolbarModule,
     MatChipsModule,
+    RouterModule
   ],
   providers: [
     HttpClient,
-    RetrieveService
+    RetrieveService,
   ],
   bootstrap: [AppComponent]
 })
