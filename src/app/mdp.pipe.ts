@@ -11,7 +11,7 @@ export class MdpPipe implements PipeTransform {
 
   transform(value: string, ...args: unknown[]): unknown {
     return md({
-      highlight: function (str, lang) {
+      highlight: function (str: string, lang: string) {
         if (lang && hljs.default.getLanguage(lang)) {
           try {
             console.log("highlighted", hljs.default.highlight(str, { language: lang }).value)
