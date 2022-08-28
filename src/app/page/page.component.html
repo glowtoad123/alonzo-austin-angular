@@ -2,5 +2,5 @@
     <mat-card-title>{{title}}</mat-card-title>
     <mat-card-content>{{description}}</mat-card-content>
     <mat-card-content class="description">{{description}}</mat-card-content>
-    <mat-card-content class="log">{{log}}</mat-card-content>
+    <mat-card-content class="log"><div [outerHTML]="log | mdp"></div></mat-card-content>
 </mat-card>

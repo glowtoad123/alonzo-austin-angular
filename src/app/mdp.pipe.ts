@@ -9,7 +9,7 @@ export class MdpPipe implements PipeTransform {
 
   
 
-  transform(value: unknown, ...args: unknown[]): unknown {
+  transform(value: string, ...args: unknown[]): unknown {
     return md({
       highlight: function (str, lang) {
         if (lang && hljs.default.getLanguage(lang)) {
@@ -21,7 +21,7 @@ export class MdpPipe implements PipeTransform {
     
         return ''; // use external default escaping
       }
-    });
+    }).render(value);
 
   }
 
