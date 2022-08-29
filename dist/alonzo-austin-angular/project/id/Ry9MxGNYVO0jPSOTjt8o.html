@@ -1,0 +1,89 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  
+<title>Kodenshare - test your students/candidates- Alonzo Austin's Projects</title>
+<meta name='description' content='This web app allows users to create code problems for students/interviewees'>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <style type="text/css">@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+  <style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v138/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+  <link href="assets/github.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="assets/github.css"></noscript>
+  <meta name="google-site-verification" content="MMnSJ_QutQ7XOgSY5dkmYXukKvs-8mvEonpADsvbD1M">
+<style>html,body{height:100%}body{background:#e9e5e5;margin:0;font-family:Roboto,Helvetica Neue,sans-serif}</style><link rel="stylesheet" href="styles.70e2eb183534a28f.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.70e2eb183534a28f.css"></noscript></head>
+<body class="mat-typography">
+  <app-root>
+<h1>Kodenshare - test your students/candidates</h1>
+<br>
+<p>This web app allows users to create code problems for students/interviewees</p>
+<br><h2>How Kodenshare got started</h2>
+<p>Kodenshare started as a completely different project. Now called <a href="https://projare.site">Projare</a>, Kodenshare started as a progressive web app that allows users to share their projects, what they used to create their projects, and the status of their projects. However, unknown to me, there was a web app called codeshare (fun fact, Kodenshare used to be called codeshare at one point until I discovered that there was already a web app called codeshare) that allows users to share their code with others. Realizing that the name <strong>Codeshare</strong> matches the description, I realized that the name <strong>Kodenshare</strong> might seem a bit misleading. With that in mind, I decided to rename it; however, I still owned the domain name kodenshare.site. Not wanting this to go to waste, I decided to make use of it. Inspired by Codenshare's ability to share code and Kahoot's ability to allow a teacher to see his/her student's responses, I decided to mix the two to create a new Kodenshare.</p>
+<h2>UI and UX</h2>
+<p>I knew that my UI and UX skills needed to be improved, so at the start of the project I decided to revamp my designs. I started to use Figma once again to create mockups of what I wanted Kodenshare to be.</p>
+<p><a href="https://www.figma.com/file/FTCWdyVYsufWTvrht9mYRs/kodenshare">Main page and about page mockup</a></p>
+<p><a href="https://www.figma.com/file/rsdYyPIywNlOjSmGwPO7ZB/kodenshare-code-page">Admin session mockup</a></p>
+<p><a href="https://www.figma.com/file/vxbNWwA0l0d2Iai8KkF4b3/kodenshare-user-session">User session mockup</a></p>
+<p>I then used that as a basis for designing the actual app. I also made the navbar responsive by moving it to the bottom and making it horizontal when the screen size becomes smaller and for mobile users.</p>
+<h2>Sending answers</h2>
+<p>This was the hardest part of development. At first, I tried to use SocketIO. This was difficult for me because I had not used web sockets before. After struggling, I was able to get the local server to keep track of answers and to send them to the admin on command. However, after three answers, the web app would become sluggish and would disconnect from the socketio server. I wondered if this was just a problem with the local environment, so I deployed it on Vercel to see if there would be any changes. However, to my frustration, I discovered that Vercel does not support Web Sockets. Thankfully, Vercel has a <a href="https://vercel.com/docs/solutions/realtime">list of alternatives</a> that helped me to discover <a href="https://pusher.com/">Pusher</a>. I was able to use this to accomplish the same thing.</p>
+<p>I found out that deployed servers cannot keep track of the answers given, so I decided to keep track of everything within the front end. At first, I had trouble because I thought that I could accomplish this by using <code>useState</code> to create an array and then add to that array every time a user makes an answer by doing the following:</p>
+<pre><code class="language-javascript">
+    <span class="hljs-keyword">const</span> [messages, setMessages] = <span class="hljs-title function_">useState</span>([])
+
+    channel.<span class="hljs-title function_">bind</span>(<span class="hljs-string">&#x27;answerIt&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) {
+        <span class="hljs-keyword">if</span>(data &amp;&amp; data.<span class="hljs-property">message</span>.<span class="hljs-property">url</span> === pageTitle) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data))
+            <span class="hljs-title function_">setMessages</span>(<span class="hljs-function"><span class="hljs-params">currentValues</span> =&gt;</span> {<span class="hljs-keyword">return</span> [...currentValues, data]})
+        } 
+    });
+
+</code></pre>
+<p>Sadly, that created an infinite loop and created endless duplicates of answers. I solved it by</p>
+<ol>
+<li>creating an array outside the main function</li>
+<li>converted messages from an array into an object</li>
+<li>Pushing the answer into the array later on in the main function but outside the channel bind.</li>
+<li>Filter out any duplicates (not the infinite ones) that decided to appear.</li>
+</ol>
+<p>It looked like the following:</p>
+<pre><code class="language-javascript">
+    <span class="hljs-title class_">Pusher</span>.<span class="hljs-property">logToConsole</span> = <span class="hljs-literal">true</span>
+    <span class="hljs-keyword">var</span> pusher = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Pusher</span>(<span class="hljs-string">&#x27;not going to show&#x27;</span>, {
+        <span class="hljs-attr">cluster</span>: <span class="hljs-string">&#x27;us2&#x27;</span>
+      });
+
+      <span class="hljs-keyword">var</span> channel = pusher.<span class="hljs-title function_">subscribe</span>(<span class="hljs-string">&#x27;answer&#x27;</span>);
+
+      <span class="hljs-keyword">var</span> listOfMessages = []
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">Problem</span>(<span class="hljs-params"></span>) {
+<span class="hljs-keyword">const</span> [messages, setMessages] = <span class="hljs-title function_">useState</span>({})
+
+    channel.<span class="hljs-title function_">bind</span>(<span class="hljs-string">&#x27;answerIt&#x27;</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) {
+        <span class="hljs-keyword">if</span>(data &amp;&amp; data.<span class="hljs-property">message</span>.<span class="hljs-property">url</span> === pageTitle) {
+            <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">stringify</span>(data))
+            <span class="hljs-title function_">setMessages</span>(data.<span class="hljs-property">message</span>)
+        } 
+    )}
+
+    <span class="hljs-keyword">if</span>(messages &amp;&amp; messages.<span class="hljs-property">url</span>) {
+        listOfMessages.<span class="hljs-title function_">map</span>(<span class="hljs-function"><span class="hljs-params">answer</span> =&gt;</span> answer.<span class="hljs-property">user</span> === messages.<span class="hljs-property">user</span> ? answer.<span class="hljs-property">message</span> = messages.<span class="hljs-property">message</span> : <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(answer.<span class="hljs-property">user</span> + <span class="hljs-string">&quot;&#x27;s answer has not been updated&quot;</span> ))
+        listOfMessages.<span class="hljs-title function_">push</span>(messages)
+    }
+    
+
+    listOfMessages.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">answer, index</span>) =&gt;</span> {
+        <span class="hljs-keyword">let</span> currentPosition = listOfMessages.<span class="hljs-title function_">indexOf</span>(answer)
+        listOfMessages[index] === answer &amp;&amp; index !== currentPosition &amp;&amp; listOfMessages.<span class="hljs-title function_">splice</span>(index, <span class="hljs-number">1</span>)
+        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;listOfMessages&quot;</span>, listOfMessages)
+        
+    })
+
+}
+
+</code></pre>
+}</app-root>
+<script src="runtime.f82309700bff6959.js" type="module"></script><script src="polyfills.8206e4e9cece1d46.js" type="module"></script><script src="main.92f0400e7a4a5d00.js" type="module"></script>
+
+</body></html>

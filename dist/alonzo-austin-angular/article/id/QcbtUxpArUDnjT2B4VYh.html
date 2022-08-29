@@ -1,0 +1,154 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="utf-8">
+  <title>Using CodeMirror in NextJS without the Navigator error- Alonzo Austin's article</title>
+<meta name='description' content='If you have tried to implement CodeMirror in a NextJS project, you may have seen an error like this everytime you refresh the page:
+
+![Navigator not defined error](https://firebasestorage.googleapis.com/v0/b/alonzoaustin-8314b.appspot.com/o/blogs%2Fnavigator%20is%20not%20defined.png?alt=media&token=8130dcb6-fb01-4338-8356-6702dd3038b2)
+
+Instead of hoping that your user would not refresh the page or removing CodeMirror all together, you could try to fix it. Here's how.
+
+Before starting ensure that you do have **react-codemirror** and **codemirror** installed. If not, copy and paste the following within your terminal
+
+``` bash
+
+// if you have npm
+
+npm i codemirror
+
+npm i react-codemirror
+
+//if you have yarn
+
+yarn add codemirror
+
+yarn add react-codemirror
+
+```
+
+## Dynamic Importing
+
+First, you need to make sure that you import `react-codemirror` and your desired themes and modes using **Dynamic imports**. To do this, import the dynamic function from NextJS normally as you would with any other npm/yarn package.
+
+``` javascript
+
+import dynamic from 'next/dynamic'
+
+```
+
+With this function imported, you can start to dynamically import react-codemirror and it's dependencies.  Keep in mind though that you have to dynamically import these outside your exported function. Create a const called **CodeMirror** and set it equal to the dynamic function. Inside the dynamic function,  import the dependencies (e.g. `import('codemirror/mode/xml/xml')`) and then return with `import('react-codemirror')`. After you have imported all of these, add an object within the function declaring `ssr: false`. In the end, it should look something like this:
+
+``` javascript
+
+const CodeMirror = dynamic(() => {
+    import('codemirror/mode/xml/xml')
+    import('codemirror/mode/javascript/javascript')
+    import('codemirror/mode/css/css')
+    import('codemirror/mode/markdown/markdown')
+    import('codemirror/theme/material-ocean.css')
+    return import('react-codemirror')
+}, {ssr: false})
+
+```
+
+## Rendering
+
+To include the CodeMirror element within your page/component, you first need to enclose it within brackets. After that, you can include everything else such as the value, options, and the onChange event. E.G.:
+
+```javascript
+
+{<CodeMirror
+    className="editor"
+    value={devLog}
+    name= "Devlog"
+    options={{
+      theme: 'mdn-like',
+      lineNumbers: true,
+      mode: 'markdown'
+    }}
+    onChange={devLog => setDevLog(devLog)}
+/>}
+
+```
+To ensure that it everything looks right and works the way you expect it to work (not having the textarea and editor being in two separate places or a bunch of x's), you should include the following in your **_app.js** file
+
+``` javascript
+
+import 'codemirror/lib/codemirror.css'
+
+```
+
+In the end, you and your users should be able to write code or write a markdown blog using CodeMirror without having to worry about refreshing the page only to see an error.'>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <style type="text/css">@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:300;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2) format('woff2');unicode-range:U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:500;font-display:swap;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+  <style type="text/css">@font-face{font-family:'Material Icons';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/materialicons/v138/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format('woff2');}.material-icons{font-family:'Material Icons';font-weight:normal;font-style:normal;font-size:24px;line-height:1;letter-spacing:normal;text-transform:none;display:inline-block;white-space:nowrap;word-wrap:normal;direction:ltr;-webkit-font-feature-settings:'liga';-webkit-font-smoothing:antialiased;}</style>
+  <link href="assets/github.css" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="assets/github.css"></noscript>
+  <meta name="google-site-verification" content="MMnSJ_QutQ7XOgSY5dkmYXukKvs-8mvEonpADsvbD1M">
+<style>html,body{height:100%}body{background:#e9e5e5;margin:0;font-family:Roboto,Helvetica Neue,sans-serif}</style><link rel="stylesheet" href="styles.70e2eb183534a28f.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.70e2eb183534a28f.css"></noscript></head>
+<body class="mat-typography">
+  <app-root>
+<h1>Using CodeMirror in NextJS without the Navigator error</h1>
+<br><p>If you have tried to implement CodeMirror in a NextJS project, you may have seen an error like this everytime you refresh the page:</p>
+<p><img src="https://firebasestorage.googleapis.com/v0/b/alonzoaustin-8314b.appspot.com/o/blogs%2Fnavigator%20is%20not%20defined.png?alt=media&amp;token=8130dcb6-fb01-4338-8356-6702dd3038b2" alt="Navigator not defined error"></p>
+<p>Instead of hoping that your user would not refresh the page or removing CodeMirror all together, you could try to fix it. Here's how.</p>
+<p>Before starting ensure that you do have <strong>react-codemirror</strong> and <strong>codemirror</strong> installed. If not, copy and paste the following within your terminal</p>
+<pre><code class="language-bash">
+// <span class="hljs-keyword">if</span> you have npm
+
+npm i codemirror
+
+npm i react-codemirror
+
+//if you have yarn
+
+yarn add codemirror
+
+yarn add react-codemirror
+
+</code></pre>
+<h2>Dynamic Importing</h2>
+<p>First, you need to make sure that you import <code>react-codemirror</code> and your desired themes and modes using <strong>Dynamic imports</strong>. To do this, import the dynamic function from NextJS normally as you would with any other npm/yarn package.</p>
+<pre><code class="language-javascript">
+<span class="hljs-keyword">import</span> dynamic <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;next/dynamic&#x27;</span>
+
+</code></pre>
+<p>With this function imported, you can start to dynamically import react-codemirror and it's dependencies.  Keep in mind though that you have to dynamically import these outside your exported function. Create a const called <strong>CodeMirror</strong> and set it equal to the dynamic function. Inside the dynamic function,  import the dependencies (e.g. <code>import('codemirror/mode/xml/xml')</code>) and then return with <code>import('react-codemirror')</code>. After you have imported all of these, add an object within the function declaring <code>ssr: false</code>. In the end, it should look something like this:</p>
+<pre><code class="language-javascript">
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">CodeMirror</span> = <span class="hljs-title function_">dynamic</span>(<span class="hljs-function">() =&gt;</span> {
+    <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;codemirror/mode/xml/xml&#x27;</span>)
+    <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;codemirror/mode/javascript/javascript&#x27;</span>)
+    <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;codemirror/mode/css/css&#x27;</span>)
+    <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;codemirror/mode/markdown/markdown&#x27;</span>)
+    <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;codemirror/theme/material-ocean.css&#x27;</span>)
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">import</span>(<span class="hljs-string">&#x27;react-codemirror&#x27;</span>)
+}, {<span class="hljs-attr">ssr</span>: <span class="hljs-literal">false</span>})
+
+</code></pre>
+<h2>Rendering</h2>
+<p>To include the CodeMirror element within your page/component, you first need to enclose it within brackets. After that, you can include everything else such as the value, options, and the onChange event. E.G.:</p>
+<pre><code class="language-javascript">
+{<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">CodeMirror</span>
+    <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;editor&quot;</span>
+    <span class="hljs-attr">value</span>=<span class="hljs-string">{devLog}</span>
+    <span class="hljs-attr">name</span>= <span class="hljs-string">&quot;Devlog&quot;</span>
+    <span class="hljs-attr">options</span>=<span class="hljs-string">{{</span>
+      <span class="hljs-attr">theme:</span> &#x27;<span class="hljs-attr">mdn-like</span>&#x27;,
+      <span class="hljs-attr">lineNumbers:</span> <span class="hljs-attr">true</span>,
+      <span class="hljs-attr">mode:</span> &#x27;<span class="hljs-attr">markdown</span>&#x27;
+    }}
+    <span class="hljs-attr">onChange</span>=<span class="hljs-string">{devLog</span> =&gt;</span> setDevLog(devLog)}
+/&gt;</span>}
+
+</code></pre>
+<p>To ensure that it everything looks right and works the way you expect it to work (not having the textarea and editor being in two separate places or a bunch of x's), you should include the following in your <strong>_app.js</strong> file</p>
+<pre><code class="language-javascript">
+<span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;codemirror/lib/codemirror.css&#x27;</span>
+
+</code></pre>
+<p>In the end, you and your users should be able to write code or write a markdown blog using CodeMirror without having to worry about refreshing the page only to see an error.</p>
+}</app-root>
+<script src="runtime.f82309700bff6959.js" type="module"></script><script src="polyfills.8206e4e9cece1d46.js" type="module"></script><script src="main.92f0400e7a4a5d00.js" type="module"></script>
+
+</body></html>
