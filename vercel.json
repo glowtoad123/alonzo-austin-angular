@@ -1,0 +1,8 @@
+{
+    "cleanUrls": true,
+    "redirects": [
+        { "source": "/project/:id", "destination": "/project/id/:id.html" },
+        { "source": "/job/:id", "destination": "/job/id/:id.html"},
+        { "source": "/article/:id", "destination": "/article/id/:id.html"}
+    ]
+}
