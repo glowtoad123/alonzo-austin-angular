@@ -1,8 +1,8 @@
 {
     "cleanUrls": true,
     "redirects": [
-        { "source": "/project/:id", "destination": "/project/id/:id.html" },
-        { "source": "/job/:id", "destination": "/job/id/:id.html"},
-        { "source": "/article/:id", "destination": "/article/id/:id.html"}
+        { "source": "/project/:id", "destination": "/project/id/:id.html", "statusCode": 308 },
+        { "source": "/job/:id", "destination": "/job/id/:id.html", "statusCode": 308},
+        { "source": "/article/:id", "destination": "/article/id/:id.html", "statusCode": 308}
     ]
 }
